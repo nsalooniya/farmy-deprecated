@@ -6,14 +6,27 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": {
-    "name": "salooniya",
-    "email": "saloniyanikhil@gamil.com"
-  },
+  "author": "salooniya <saloniyanikhil@gamil.com>",
   "license": "ISC",
   "devDependencies": {
     "webpack": "^5.36.2",
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2"
-  }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ns221102/farmy.git"
+  },
+  "keywords": [
+    "farmy",
+    "framework"
+  ],
+  "bugs": {
+    "url": "https://github.com/ns221102/farmy/issues"
+  },
+  "homepage": "https://github.com/ns221102/farmy#readme"
 }
