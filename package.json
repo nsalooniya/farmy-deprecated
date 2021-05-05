@@ -1,0 +1,19 @@
+{
+  "name": "farmy",
+  "version": "0.0.1",
+  "description": "Powerful, modern and fast web framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "salooniya",
+    "email": "saloniyanikhil@gamil.com"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
