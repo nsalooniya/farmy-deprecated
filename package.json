@@ -4,7 +4,10 @@
   "description": "Powerful, modern and fast web framework",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --open",
+    "watch": "webpack --watch",
+    "build": "webpack"
   },
   "author": "salooniya <saloniyanikhil@gamil.com>",
   "license": "ISC",
