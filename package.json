@@ -1,6 +1,6 @@
 {
   "name": "farmy-beta",
-  "version": "0.5.14",
+  "version": "0.6.0",
   "description": "Powerful, modern and fast web framework",
   "main": "index.js",
   "scripts": {
