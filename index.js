@@ -1,15 +1,13 @@
-const Router = require('./lib/router');
-const $ = require('./lib/adm');
-const View = require('./lib/view');
-const Component = require('./lib/component');
-const State = require('./lib/state');
-const HP = require('./lib/helper');
+import $ from './lib/dom';
+import Component from "./lib/component";
+import View from "./lib/view";
+import State from "./lib/state";
+import Router from "./lib/router";
 
-module.exports = {
-    Router,
-    $,
-    View,
-    Component,
-    State,
-    HP
+export {
+	$,
+	Component,
+	View,
+	State,
+	Router
 };
