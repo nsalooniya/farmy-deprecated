@@ -6,6 +6,9 @@ const path = require('path');
 const rootPath = path.resolve(__dirname, '../..');
 const projectName = process.argv[2] || 'farmy';
 
+console.log(__dirname);
+console.log(process);
+
 fs.mkdirSync(rootPath + '/config');
 // config webpack prod
 fs.writeFileSync(rootPath + '/config/webpack.prod.js', `
