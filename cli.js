@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const rootPath = path.resolve(__dirname, '../..');
+const projectName = process.argv[2] || 'farmy';
 
 fs.mkdirSync(rootPath + '/config');
 // config webpack prod
@@ -111,7 +112,7 @@ fs.writeFileSync(rootPath + '/public/index.html', `
     <script src="./app.js" defer></script>
 
     <!--  title  -->
-    <title>Farmy Project</title>
+    <title>${projectName}</title>
 </head>
 <body>
 
@@ -136,17 +137,10 @@ fs.writeFileSync(rootPath + '/src/app.js', `
 
 // package json
 
-
-// "start": "webpack serve --open --config old/config/webpack.dev.js",
-//     "watch:dev": "webpack -watch --config old/config/webpack.dev.js",
-//     "watch:prod": "webpack -watch --config old/config/webpack.prod.js",
-//     "build:dev": "webpack --config old/config/webpack.dev.js",
-//     "build:prod": "webpack --config old/config/webpack.prod.js"
-
 fs.writeFileSync(rootPath + '/package.json', JSON.stringify({
-    "name": "Farmy_Project",
+    "name": projectName,
     "version": "0.0.0",
-    "description": "Farmy Project",
+    "description": projectName,
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -171,4 +165,10 @@ fs.writeFileSync(rootPath + '/package.json', JSON.stringify({
         "webpack-dev-server": "^3.11.2"
     }
 }))
+
+const {execSync} = require('child_process');
+
+console.log('==== SETTING THINGS UP ===');
+execSync("npm install");
+console.log('==== SETUP COMPLETED ===');
 
