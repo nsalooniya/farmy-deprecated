@@ -3,6 +3,9 @@
   "version": "0.8.2",
   "description": "Powerful, modern and fast web framework",
   "main": "index.js",
+  "bin": {
+    "farmy": "cli.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --open",
