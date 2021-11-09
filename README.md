@@ -9,8 +9,11 @@
 ```
 $ npm i farmy
 ```
-
-<h2>Example Usage</h2>
+OR
+```
+$ npx farmy sample
+```
+<h2>Example Usage - OLD</h2>
 
 ```
 import {$, Component, View, State, Router} from 'farmy';
