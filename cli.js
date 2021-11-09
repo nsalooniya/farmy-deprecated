@@ -135,7 +135,7 @@ fs.writeFileSync(rootPath + '/src/app.js', `
 import {$} from 'farmy';
 
 const $root = $('#root');
-$root.innerHTML('<h1>${projectName}</h1>>');
+$root.innerHTML('<h1>${projectName}</h1>');
 
 `);
 
