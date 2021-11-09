@@ -1,7 +1,7 @@
 {
   "name": "farmy",
   "version": "0.8.9",
-  "description": "Powerful, modern and fast web framework",
+  "description": "Powerful, modern annpm d fast web framework",
   "main": "index.js",
   "bin": {
     "farmy": "cli.js"

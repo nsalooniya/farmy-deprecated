@@ -7,16 +7,16 @@ console.log(message, version);
 
 if (message && version) {
     try {
-        execSync(`git add .`);
         console.log(`=> git add .`);
-        execSync(`git commit -m "${message}"`);
+        execSync(`git add .`);
         console.log(`=> git commit -m "${message}"`);
-        execSync(`npm version ${message}`);
-        console.log(`=> npm version ${message}`);
-        execSync(`git push`);
+        execSync(`git commit -m "${message}"`);
+        console.log(`=> npm version ${version}`);
+        execSync(`npm version ${version}`);
         console.log(`=> git push`);
         execSync(`npm publish`);
-        execSync(`=> npm publish`);
+        console.log(`=> npm publish`);
+        execSync(`git push`);
     } catch (err) {
         console.log('error :', err);
     }
