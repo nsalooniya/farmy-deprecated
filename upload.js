@@ -14,9 +14,9 @@ if (message && version) {
         console.log(`=> npm version ${version}`);
         execSync(`npm version ${version}`);
         console.log(`=> git push`);
-        execSync(`npm publish`);
-        console.log(`=> npm publish`);
         execSync(`git push`);
+        console.log(`=> npm publish`);
+        execSync(`npm publish`);
     } catch (err) {
         console.log('error :', err);
     }
