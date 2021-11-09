@@ -4,14 +4,14 @@
   "description": "Powerful, modern and fast web framework",
   "main": "index.js",
   "bin": {
-    "farmy": "cli.js",
-    "setup": "cli.js"
+    "farmy": "cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --open",
     "watch": "webpack --watch",
-    "build": "webpack"
+    "build": "webpack",
+    "upload": "node upload.js"
   },
   "author": "salooniya <saloniyanikhil@gamil.com>",
   "license": "ISC",

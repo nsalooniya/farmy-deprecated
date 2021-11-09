@@ -132,7 +132,10 @@ fs.mkdirSync(rootPath + '/src');
 // src app.js
 fs.writeFileSync(rootPath + '/src/app.js', `
 
-// Happy coding
+import {$} from 'farmy';
+
+const $root = $('#root');
+$root.innerHTML('<h1>${projectName}</h1>>');
 
 `);
 
@@ -170,6 +173,8 @@ fs.writeFileSync(rootPath + '/package.json', JSON.stringify({
 const {execSync} = require('child_process');
 
 console.log('==== SETTING THINGS UP ===');
+console.log('=> this may take some time');
 execSync("npm install");
 console.log('==== SETUP COMPLETED ===');
+console.log('=> run - npm start');
 
