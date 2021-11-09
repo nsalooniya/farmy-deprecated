@@ -3,6 +3,8 @@ const execSync = require('child_process').execSync;
 const message = process.argv[2];
 const version = process.argv[3];
 
+console.log(message, version);
+
 if (message && version) {
     try {
         execSync(`git add .`);
