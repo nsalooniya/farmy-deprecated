@@ -140,7 +140,8 @@ $root.innerHTML('<h1>${projectName}</h1>');
 `);
 
 // package json
-const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+const pkgPATH = path.resolve(__dirname, './package.json');
+const pkg = JSON.parse(fs.readFileSync(pkgPATH, 'utf8'));
 
 fs.writeFileSync(rootPath + '/package.json', JSON.stringify({
     "name": projectName,
@@ -158,7 +159,7 @@ fs.writeFileSync(rootPath + '/package.json', JSON.stringify({
     "author": "Nikhil Salooniya",
     "license": "ISC",
     "dependencies": {
-        "farmy": `"^${pkg.version}"`
+        "farmy": `^${pkg.version}`
     },
     "devDependencies": {
         "css-loader": "^5.2.4",
