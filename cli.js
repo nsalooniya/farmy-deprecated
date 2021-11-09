@@ -150,11 +150,11 @@ fs.writeFileSync(rootPath + '/package.json', JSON.stringify({
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "webpack serve --open --config old/config/webpack.dev.js",
-        "watch:dev": "webpack -watch --config old/config/webpack.dev.js",
-        "watch:prod": "webpack -watch --config old/config/webpack.prod.js",
-        "build:dev": "webpack --config old/config/webpack.dev.js",
-        "build:prod": "webpack --config old/config/webpack.prod.js"
+        "start": "webpack serve --open --config config/webpack.dev.js",
+        "watch:dev": "webpack -watch --config config/webpack.dev.js",
+        "watch:prod": "webpack -watch --config config/webpack.prod.js",
+        "build:dev": "webpack --config config/webpack.dev.js",
+        "build:prod": "webpack --config config/webpack.prod.js"
     },
     "author": "Nikhil Salooniya",
     "license": "ISC",
