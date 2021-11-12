@@ -158,25 +158,25 @@ fs.writeFileSync(rootPath + '/package.json', JSON.stringify({
     },
     "author": "Nikhil Salooniya",
     "license": "ISC",
-    "dependencies": {
-        "farmy": `^${pkg.version}`
-    },
-    "devDependencies": {
-        "css-loader": "^5.2.4",
-        "sass": "^1.32.12",
-        "sass-loader": "^11.0.1",
-        "style-loader": "^2.0.0",
-        "webpack": "^5.36.2",
-        "webpack-cli": "^4.7.0",
-        "webpack-dev-server": "^3.11.2"
-    }
+    // "dependencies": {
+    //     "farmy": `^${pkg.version}`
+    // },
+    // "devDependencies": {
+    //     "css-loader": "^5.2.4",
+    //     "sass": "^1.32.12",
+    //     "sass-loader": "^11.0.1",
+    //     "style-loader": "^2.0.0",
+    //     "webpack": "^5.36.2",
+    //     "webpack-cli": "^4.7.0",
+    //     "webpack-dev-server": "^3.11.2"
+    // }
 }))
 
 const {execSync} = require('child_process');
 
 console.log('==== SETTING THINGS UP ===');
 console.log('=> this may take some time');
-execSync("npm install");
+execSync("npm install farmy@latest css-loader@latest sass@latest sass-loader@latest style-loader@latest webpack@latest webpack-cli@latest webpack-dev-server@latest");
 console.log('==== SETUP COMPLETED ===');
 console.log('=> run - npm start');
 
