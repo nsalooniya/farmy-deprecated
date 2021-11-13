@@ -181,11 +181,13 @@ fs.writeFileSync(rootPath + '/package.json', JSON.stringify({
     }
 }))
 
+const logBlue = (log) => console.log('\x1b[34m%s\x1b[0m', log);
+
 const {execSync} = require('child_process');
 
-console.log('==== SETTING THINGS UP ===');
-console.log('=> this may take some time');
+logBlue('==== SETTING THINGS UP ===');
+logBlue('=> this may take some time');
 execSync("npm install");
-console.log('==== SETUP COMPLETED ===');
-console.log('=> run - npm start');
+logBlue('==== SETUP COMPLETED ===');
+logBlue('=> run - npm start');
 
