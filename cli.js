@@ -2,14 +2,24 @@
 
 const fs = require('fs');
 const path = require('path');
+const {execSync, exec} = require('child_process');
+
+const logBlue = (log) => console.log('\x1b[34m%s\x1b[0m', log);
+const logRed = (log) => console.log('\x1b[31m%s\x1b[0m', log);
+
+logBlue('==== SETTING THINGS UP ===');
+logBlue('=> this may take some time');
+
+
+try {
 
 // const rootPath = path.resolve(__dirname, '../..');
 const rootPath = process.env.PWD;
 const projectName = process.argv[2] || 'farmy';
 
-fs.mkdirSync(rootPath + '/config');
+    fs.mkdirSync(rootPath + '/config');
 // config webpack prod
-fs.writeFileSync(rootPath + '/config/webpack.prod.js', `
+    fs.writeFileSync(rootPath + '/config/webpack.prod.js', `
 
 const path = require('path');
 
@@ -52,7 +62,7 @@ module.exports = {
 `);
 
 // config webpack dev
-fs.writeFileSync(rootPath + '/config/webpack.dev.js', `
+    fs.writeFileSync(rootPath + '/config/webpack.dev.js', `
 const path = require('path');
 
 module.exports = {
@@ -96,9 +106,9 @@ module.exports = {
 };
 `);
 
-fs.mkdirSync(rootPath + '/public');
+    fs.mkdirSync(rootPath + '/public');
 // public index.html
-fs.writeFileSync(rootPath + '/public/index.html', `
+    fs.writeFileSync(rootPath + '/public/index.html', `
 
 <!doctype html>
 <html lang="en">
@@ -128,9 +138,9 @@ fs.writeFileSync(rootPath + '/public/index.html', `
 
 `);
 
-fs.mkdirSync(rootPath + '/src');
+    fs.mkdirSync(rootPath + '/src');
 // src app.js
-fs.writeFileSync(rootPath + '/src/app.js', `
+    fs.writeFileSync(rootPath + '/src/app.js', `
 
 import {$} from 'farmy';
 
@@ -140,64 +150,66 @@ $root.innerHTML('<h1>${projectName}</h1>');
 `);
 
 // package json
-const pkgPATH = path.resolve(__dirname, './package.json');
-const pkg = JSON.parse(fs.readFileSync(pkgPATH, 'utf8'));
+    const pkgPATH = path.resolve(__dirname, './package.json');
+    const pkg = JSON.parse(fs.readFileSync(pkgPATH, 'utf8'));
 
-fs.writeFileSync(rootPath + '/package.json', JSON.stringify({
-    "name": projectName,
-    "version": "0.0.0",
-    "description": projectName,
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "webpack serve --open --config config/webpack.dev.js",
-        "watch:dev": "webpack -watch --config config/webpack.dev.js",
-        "watch:prod": "webpack -watch --config config/webpack.prod.js",
-        "build:dev": "webpack --config config/webpack.dev.js",
-        "build:prod": "webpack --config config/webpack.prod.js"
-    },
-    "author": "Nikhil Salooniya",
-    "license": "ISC",
-    "dependencies": {
-        "farmy": `^${pkg.version}`
-    },
-    "__devDependencies": {
-        "css-loader": "^5.2.4",
-        "sass": "^1.32.12",
-        "sass-loader": "^11.0.1",
-        "style-loader": "^2.0.0",
-        "webpack": "^5.36.2",
-        "webpack-cli": "^4.7.0",
-        "webpack-dev-server": "^3.11.2"
-    },
-    "devDependencies": {
-        "css-loader": "5.2.6",
-        "sass": "1.34.1",
-        "sass-loader": "12.1.0",
-        "style-loader": "2.0.0",
-        "webpack": "5.38.1",
-        "webpack-cli": "4.7.2",
-        "webpack-dev-server": "3.11.2"
-    }
-}))
+    fs.writeFileSync(rootPath + '/package.json', JSON.stringify({
+        "name": projectName,
+        "version": "0.0.0",
+        "description": projectName,
+        "main": "index.js",
+        "scripts": {
+            "test": "echo \"Error: no test specified\" && exit 1",
+            "start": "webpack serve --open --config config/webpack.dev.js",
+            "watch:dev": "webpack -watch --config config/webpack.dev.js",
+            "watch:prod": "webpack -watch --config config/webpack.prod.js",
+            "build:dev": "webpack --config config/webpack.dev.js",
+            "build:prod": "webpack --config config/webpack.prod.js"
+        },
+        "author": "Nikhil Salooniya",
+        "license": "ISC",
+        "dependencies": {
+            "farmy": `^${pkg.version}`
+        },
+        "__devDependencies": {
+            "css-loader": "^5.2.4",
+            "sass": "^1.32.12",
+            "sass-loader": "^11.0.1",
+            "style-loader": "^2.0.0",
+            "webpack": "^5.36.2",
+            "webpack-cli": "^4.7.0",
+            "webpack-dev-server": "^3.11.2"
+        },
+        "devDependencies": {
+            "css-loader": "5.2.6",
+            "sass": "1.34.1",
+            "sass-loader": "12.1.0",
+            "style-loader": "2.0.0",
+            "webpack": "5.38.1",
+            "webpack-cli": "4.7.2",
+            "webpack-dev-server": "3.11.2"
+        }
+    }));
 
-const logBlue = (log) => console.log('\x1b[34m%s\x1b[0m', log);
-const logRed = (log) => console.log('\x1b[31m%s\x1b[0m', log);
+    execSync("npm install");
 
-const {execSync, exec} = require('child_process');
+    logBlue('==== SETUP COMPLETED ===');
+    logBlue('=> run - npm start');
 
-logBlue('==== SETTING THINGS UP ===');
-logBlue('=> this may take some time');
+} catch (err) {
+    logRed('=== SETUP FAILED ===');
+    logRed('=>' + err);
+}
 
-exec('npm install', (err, stdout, stderr) => {
-    if (err) {
-        logRed('=== SETUP FAILED ===');
-        logRed(`=> ${stderr}`);
-    } else {
-        logBlue('==== SETUP COMPLETED ===');
-        logBlue('=> run - npm start');
-    }
-});
+// exec('npm install', (err, stdout, stderr) => {
+//     if (err) {
+//         logRed('=== SETUP FAILED ===');
+//         logRed(`=> ${stderr}`);
+//     } else {
+//         logBlue('==== SETUP COMPLETED ===');
+//         logBlue('=> run - npm start');
+//     }
+// });
 
 // try {
 //     execSync("npm install");
