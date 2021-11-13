@@ -171,13 +171,13 @@ fs.writeFileSync(rootPath + '/package.json', JSON.stringify({
         "webpack-dev-server": "^3.11.2"
     },
     "devDependencies": {
-        "css-loader": "^5.2.6",
-        "sass": "^1.34.1",
-        "sass-loader": "^12.1.0",
-        "style-loader": "^2.0.0",
-        "webpack": "^5.38.1",
-        "webpack-cli": "^4.7.2",
-        "webpack-dev-server": "^3.11.2"
+        "css-loader": "5.2.6",
+        "sass": "1.34.1",
+        "sass-loader": "12.1.0",
+        "style-loader": "2.0.0",
+        "webpack": "5.38.1",
+        "webpack-cli": "4.7.2",
+        "webpack-dev-server": "3.11.2"
     }
 }))
 
