@@ -4,6 +4,7 @@ const message = process.argv[2];
 const version = process.argv[3];
 
 const logBlue = (log) => console.log('\x1b[34m%s\x1b[0m', log);
+const logRed = (log) => console.log('\x1b[31m%s\x1b[0m', log);
 
 if (message && version) {
     try {
@@ -18,7 +19,7 @@ if (message && version) {
         logBlue(`=> npm publish`);
         execSync(`npm publish`);
     } catch (err) {
-        logBlue('error :', err);
+        logRed('error :', err);
     }
 } else {
     throw Error('Wrong args passed');

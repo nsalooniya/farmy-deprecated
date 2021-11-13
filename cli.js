@@ -182,12 +182,33 @@ fs.writeFileSync(rootPath + '/package.json', JSON.stringify({
 }))
 
 const logBlue = (log) => console.log('\x1b[34m%s\x1b[0m', log);
+const logRed = (log) => console.log('\x1b[31m%s\x1b[0m', log);
 
-const {execSync} = require('child_process');
+const {execSync, exec} = require('child_process');
 
 logBlue('==== SETTING THINGS UP ===');
 logBlue('=> this may take some time');
-execSync("npm install");
-logBlue('==== SETUP COMPLETED ===');
-logBlue('=> run - npm start');
+
+exec('npm install', (err, stdout, stderr) => {
+    if (err) {
+        logRed('=== SETUP FAILED ===');
+        logRed(`=> ${stderr}`);
+    } else {
+        logBlue('==== SETUP COMPLETED ===');
+        logBlue('=> run - npm start');
+    }
+});
+
+// try {
+//     execSync("npm install");
+//     logBlue('==== SETUP COMPLETED ===');
+//     logBlue('=> run - npm start');
+// } catch (err) {
+//     logRed('=== SETUP FAILED ===');
+//     logRed('=>' + err);
+// }
+
+// execSync("npm install");
+// logBlue('==== SETUP COMPLETED ===');
+// logBlue('=> run - npm start');
 
