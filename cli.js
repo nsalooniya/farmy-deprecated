@@ -198,7 +198,7 @@ $root.innerHTML('<h1>${projectName}</h1>');
 
 } catch (err) {
     logRed('=== SETUP FAILED ===');
-    logRed('=>' + err);
+    logRed('=> ' + err);
 }
 
 // exec('npm install', (err, stdout, stderr) => {
