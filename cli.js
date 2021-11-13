@@ -171,7 +171,7 @@ $root.innerHTML('<h1>${projectName}</h1>');
         "dependencies": {
             "farmy": `^${pkg.version}`
         },
-        "__devDependencies": {
+        "devDependencies": {
             "css-loader": "^5.2.4",
             "sass": "^1.32.12",
             "sass-loader": "^11.0.1",
@@ -180,7 +180,7 @@ $root.innerHTML('<h1>${projectName}</h1>');
             "webpack-cli": "^4.7.0",
             "webpack-dev-server": "^3.11.2"
         },
-        "devDependencies": {
+        "__devDependencies": {
             "css-loader": "5.2.6",
             "sass": "1.34.1",
             "sass-loader": "12.1.0",
