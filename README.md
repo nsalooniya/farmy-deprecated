@@ -113,3 +113,5 @@ Router.after(() => {
 
 Router.start(app);
 ```
+
+<h2>© All Rights Reserved.</h2>
