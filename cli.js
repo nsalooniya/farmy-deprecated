@@ -120,7 +120,7 @@ module.exports = {
     <meta name="description" content="Farmy Project">
 
     <!--  script  -->
-    <script src="./app.js" defer></script>
+    <script src="/app.js" defer></script>
 
     <!--  title  -->
     <title>${projectName}</title>
