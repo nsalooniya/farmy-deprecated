@@ -1,6 +1,6 @@
 {
   "name": "farmy",
-  "version": "0.12.12",
+  "version": "0.12.14",
   "description": "Powerful, modern and fast web framework",
   "main": "index.js",
   "bin": {
