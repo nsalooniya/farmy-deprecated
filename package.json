@@ -14,7 +14,6 @@
     "upload": "node upload.js"
   },
   "author": "salooniya <saloniyanikhil@gamil.com>",
-  "license": "UNLICENSED",
   "devDependencies": {
     "css-loader": "^5.2.4",
     "sass": "^1.32.12",

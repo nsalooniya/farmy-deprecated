@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const {execSync, exec} = require('child_process');
+const { execSync, exec } = require('child_process');
 
 const logBlue = (log) => console.log('\x1b[34m%s\x1b[0m', log);
 const logRed = (log) => console.log('\x1b[31m%s\x1b[0m', log);
@@ -13,143 +13,151 @@ logBlue('=> this may take some time');
 
 try {
 
-// const rootPath = path.resolve(__dirname, '../..');
-const rootPath = process.env.PWD;
-const projectName = process.argv[2] || 'farmy';
+    // const rootPath = path.resolve(__dirname, '../..');
+    const rootPath = process.env.PWD;
+    const projectName = process.argv[2] || 'farmy';
 
-    fs.mkdirSync(rootPath + '/config');
-// config webpack prod
+    fs.mkdirSync(rootPath + '/config', {
+        recursive: true
+    });
+    // config webpack prod
     fs.writeFileSync(rootPath + '/config/webpack.prod.js', `
 
-const path = require('path');
+    const path = require('path');
 
-module.exports = {
-    mode: 'production',
-    entry: {
-        app: './src/app.js'
-    },
-    output: {
-        filename: '[name].js',
-        // path: path.resolve(__dirname, 'public')
-        // path: path.resolve(__dirname, '../dist-pro')
-        path: path.resolve(__dirname, '../public')
-    },
-    devtool: 'source-map',
-    resolve: {
-        extensions: ['.js', '.json']
-    },
-    module: {
-        rules: [
-            {
-                test: /\.s[ac]ss$/i,
-                use: ['style-loader', 'css-loader', 'sass-loader']
-            },
-            {
-                test: /\.css$/i,
-                use: ['style-loader', 'css-loader']
-            },
-            {
-                test: /\.(png|jpg|jpeg|svg)$/i,
-                type: 'asset/resource',
-                generator: {
-                    filename: '[name][ext]'
+    module.exports = {
+        mode: 'production',
+        entry: {
+            app: './src/app.js'
+        },
+        output: {
+            filename: '[name].js',
+            // path: path.resolve(__dirname, 'public')
+            // path: path.resolve(__dirname, '../dist-pro')
+            // path: path.resolve(__dirname, '../public')
+            path: path.resolve(__dirname, '../build')
+        },
+        devtool: 'source-map',
+        resolve: {
+            extensions: ['.js', '.json']
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.s[ac]ss$/i,
+                    use: ['style-loader', 'css-loader', 'sass-loader']
+                },
+                {
+                    test: /\.css$/i,
+                    use: ['style-loader', 'css-loader']
+                },
+                {
+                    test: /\.(png|jpg|jpeg|svg)$/i,
+                    type: 'asset/resource',
+                    generator: {
+                        filename: '[name][ext]'
+                    }
                 }
-            }
-        ]
-    }
-};
+            ]
+        }
+    };
 
-`);
+    `);
 
-// config webpack dev
+    // config webpack dev
     fs.writeFileSync(rootPath + '/config/webpack.dev.js', `
-const path = require('path');
+    const path = require('path');
 
-module.exports = {
-    mode: 'development',
-    entry: {
-        app: './src/app.js'
-    },
-    output: {
-        filename: '[name].js',
-        path: path.resolve(__dirname, '../public')
-    },
-    devtool: 'inline-source-map',
-    devServer: {
-        port: 3000,
-        contentBase: ['./public'],
-        watchContentBase: true,
-        historyApiFallback: true
-    },
-    resolve: {
-        extensions: ['.js', '.json']
-    },
-    module: {
-        rules: [
-            {
-                test: /.s[ac]ss$/i,
-                use: ['style-loader', 'css-loader', 'sass-loader']
-            },
-            {
-                test: /.css$/i,
-                use: ['style-loader', 'css-loader']
-            },
-            {
-                test: /.(png|jpg|jpeg|svg)$/i,
-                type: 'asset/resource',
-                generator: {
-                    filename: '[name][ext]'
+    module.exports = {
+        mode: 'development',
+        entry: {
+            app: './src/app.js'
+        },
+        output: {
+            filename: '[name].js',
+            // path: path.resolve(__dirname, '../public')
+            path: path.resolve(__dirname, '../build')
+        },
+        devtool: 'inline-source-map',
+        devServer: {
+            port: 3000,
+            contentBase: ['./public'],
+            watchContentBase: true,
+            historyApiFallback: true
+        },
+        resolve: {
+            extensions: ['.js', '.json']
+        },
+        module: {
+            rules: [
+                {
+                    test: /.s[ac]ss$/i,
+                    use: ['style-loader', 'css-loader', 'sass-loader']
+                },
+                {
+                    test: /.css$/i,
+                    use: ['style-loader', 'css-loader']
+                },
+                {
+                    test: /.(png|jpg|jpeg|svg)$/i,
+                    type: 'asset/resource',
+                    generator: {
+                        filename: '[name][ext]'
+                    }
                 }
-            }
-        ]
-    }
-};
-`);
+            ]
+        }
+    };
+    `);
 
-    fs.mkdirSync(rootPath + '/public');
-// public index.html
+    fs.mkdirSync(rootPath + '/public', {
+        recursive: true
+    });
+    // public index.html
     fs.writeFileSync(rootPath + '/public/index.html', `
 
-<!doctype html>
-<html lang="en">
-<head>
-    <!--  meta  -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="Farmy Project">
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <!--  meta  -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="description" content="Farmy Project">
 
-    <!--  script  -->
-    <script src="/app.js" defer></script>
+        <!--  script  -->
+        <script src="/app.js" defer></script>
 
-    <!--  title  -->
-    <title>${projectName}</title>
-</head>
-<body>
+        <!--  title  -->
+        <title>${projectName}</title>
+    </head>
+    <body>
 
-<!--  root  -->
-<div id="root"></div>
+    <!--  root  -->
+    <div id="root"></div>
 
-<!--  noscript  -->
-<noscript>You need to enable JavaScript to run this app.</noscript>
+    <!--  noscript  -->
+    <noscript>You need to enable JavaScript to run this app.</noscript>
 
-</body>
-</html>
+    </body>
+    </html>
 
-`);
+    `);
 
-    fs.mkdirSync(rootPath + '/src');
-// src app.js
+    fs.mkdirSync(rootPath + '/src', {
+        recursive: true
+    });
+    // src app.js
     fs.writeFileSync(rootPath + '/src/app.js', `
 
-import {$} from 'farmy';
+    import {$} from 'farmy';
 
-const $root = $('#root');
-$root.innerHTML('<h1>${projectName}</h1>');
+    const $root = $('#root');
+    $root.innerHTML('<h1>${projectName}</h1>');
 
-`);
+    `);
 
-// package json
+    // package json
     const pkgPATH = path.resolve(__dirname, './package.json');
     const pkg = JSON.parse(fs.readFileSync(pkgPATH, 'utf8'));
 
@@ -163,8 +171,8 @@ $root.innerHTML('<h1>${projectName}</h1>');
             "start": "webpack serve --open --config config/webpack.dev.js",
             "watch:dev": "webpack -watch --config config/webpack.dev.js",
             "watch:prod": "webpack -watch --config config/webpack.prod.js",
-            "build:dev": "webpack --config config/webpack.dev.js",
-            "build:prod": "webpack --config config/webpack.prod.js"
+            "build:dev": "rm -rf build/ && webpack --config config/webpack.dev.js && cp -r public/* build",
+            "build:prod": "rm -rf build/ && webpack --config config/webpack.prod.js && cp -r public/* build"
         },
         "author": "Nikhil Salooniya",
         "license": "ISC",
@@ -200,27 +208,4 @@ $root.innerHTML('<h1>${projectName}</h1>');
     logRed('=== SETUP FAILED ===');
     logRed('=> ' + err);
 }
-
-// exec('npm install', (err, stdout, stderr) => {
-//     if (err) {
-//         logRed('=== SETUP FAILED ===');
-//         logRed(`=> ${stderr}`);
-//     } else {
-//         logBlue('==== SETUP COMPLETED ===');
-//         logBlue('=> run - npm start');
-//     }
-// });
-
-// try {
-//     execSync("npm install");
-//     logBlue('==== SETUP COMPLETED ===');
-//     logBlue('=> run - npm start');
-// } catch (err) {
-//     logRed('=== SETUP FAILED ===');
-//     logRed('=>' + err);
-// }
-
-// execSync("npm install");
-// logBlue('==== SETUP COMPLETED ===');
-// logBlue('=> run - npm start');
 
