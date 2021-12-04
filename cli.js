@@ -17,6 +17,11 @@ try {
     const rootPath = process.env.PWD;
     const projectName = process.argv[2] || 'farmy';
 
+    // ==== make project root folder
+    rootPath = rootPath + '/' + projectName;
+    fs.mkdirSync(rootPath);
+    // ====
+
     fs.mkdirSync(rootPath + '/config', {
         recursive: true
     });
@@ -202,7 +207,8 @@ try {
     execSync("npm install");
 
     logBlue('==== SETUP COMPLETED ===');
-    logBlue('=> run - npm start');
+    logBlue('=> cd into project folder');
+    logBlue('=> npm start');
 
 } catch (err) {
     logRed('=== SETUP FAILED ===');

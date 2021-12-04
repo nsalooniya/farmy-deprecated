@@ -13,7 +13,10 @@ OR
 ```
 $ npx farmy sample
 ```
-<h2>Example Usage - OLD</h2>
+<p>* Bash terminal required for npx command</p>
+<h2>Example Usage</h2>
+<p> * for version 0.7.0</p>
+<p> * for new version usage check <a href="https://www.farmyjs.netlify.app">Farmy Offical Website</a></p>
 
 ```
 import {$, Component, View, State, Router} from 'farmy';
