@@ -164,7 +164,8 @@ try {
     `);
 
     // package json
-    const pkgPATH = path.resolve(__dirname, './package.json');
+    const pkgPath_ = path.resolve(__dirname, `./${projectName}`);
+    const pkgPATH = path.resolve(pkgPath_, './package.json');
     const pkg = JSON.parse(fs.readFileSync(pkgPATH, 'utf8'));
 
     fs.writeFileSync(rootPath + '/package.json', JSON.stringify({
