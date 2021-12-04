@@ -14,7 +14,7 @@ logBlue('=> this may take some time');
 try {
 
     // const rootPath = path.resolve(__dirname, '../..');
-    const rootPath = process.env.PWD;
+    let rootPath = process.env.PWD;
     const projectName = process.argv[2] || 'farmy';
 
     // ==== make project root folder
