@@ -20,6 +20,7 @@ try {
     // ==== make project root folder
     rootPath = rootPath + '/' + projectName;
     fs.mkdirSync(rootPath);
+    execSync(`cd ${projectName}`);
     // ====
 
     fs.mkdirSync(rootPath + '/config', {
