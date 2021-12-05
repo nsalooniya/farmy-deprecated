@@ -163,7 +163,7 @@ try {
     `);
 
     // package json
-    const pkgPATH = path.resolve(__dirname, `./${projectName}/package.json`);
+    const pkgPATH = path.resolve(__dirname, `./package.json`);
     const pkg = JSON.parse(fs.readFileSync(pkgPATH, 'utf8'));
 
     fs.writeFileSync(rootPath + '/package.json', JSON.stringify({
@@ -204,7 +204,7 @@ try {
         }
     }));
 
-    execSync(`cd ${projectName} && npm install`);
+    // execSync(`cd ${projectName} && npm install`);
 
     logBlue('==== SETUP COMPLETED ===');
     logBlue('=> cd into project folder');
