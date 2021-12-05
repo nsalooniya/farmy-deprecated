@@ -4,8 +4,9 @@ const fs = require('fs');
 const path = require('path');
 const { execSync, exec } = require('child_process');
 
-const logBlue = (log) => console.log('\x1b[34m%s\x1b[0m', log);
-const logRed = (log) => console.log('\x1b[31m%s\x1b[0m', log);
+const logYellow = (log) => console.log('\x1b[33m%s\x1b[89m', log);
+const logBlue = (log) => console.log('\x1b[36m%s\x1b[89m', log);
+const logRed = (log) => console.log('\x1b[31m%s\x1b[89m', log);
 
 logBlue('==== SETTING THINGS UP ===');
 logBlue('=> this may take some time');
@@ -20,11 +21,14 @@ try {
     // ==== make project root folder
     rootPath = rootPath + '/' + projectName;
     fs.mkdirSync(rootPath);
+    logYellow('* project root folder created');
     // ====
 
     fs.mkdirSync(rootPath + '/config', {
         recursive: true
     });
+    logYellow('* config folder created');
+
     // config webpack prod
     fs.writeFileSync(rootPath + '/config/webpack.prod.js', `
 
@@ -68,6 +72,7 @@ try {
     };
 
     `);
+    logYellow('* config/webpack.prod.js created');
 
     // config webpack dev
     fs.writeFileSync(rootPath + '/config/webpack.dev.js', `
@@ -114,10 +119,13 @@ try {
         }
     };
     `);
+    logYellow('* config/webpack.dev.js created');
 
     fs.mkdirSync(rootPath + '/public', {
         recursive: true
     });
+    logYellow('* public folder created');
+
     // public index.html
     fs.writeFileSync(rootPath + '/public/index.html', `
 
@@ -148,10 +156,14 @@ try {
     </html>
 
     `);
+    logYellow('* public/index.html created');
+
 
     fs.mkdirSync(rootPath + '/src', {
         recursive: true
     });
+    logYellow('* src folder created');
+
     // src app.js
     fs.writeFileSync(rootPath + '/src/app.js', `
 
@@ -161,10 +173,12 @@ try {
     $root.innerHTML('<h1>${projectName}</h1>');
 
     `);
+    logYellow('* src/app.js created');
 
     // package json
     const pkgPATH = path.resolve(__dirname, `./package.json`);
     const pkg = JSON.parse(fs.readFileSync(pkgPATH, 'utf8'));
+    logYellow('* farmy/package.json read completed');
 
     fs.writeFileSync(rootPath + '/package.json', JSON.stringify({
         "name": projectName,
@@ -203,8 +217,11 @@ try {
             "webpack-dev-server": "3.11.2"
         }
     }));
+    logYellow('* package.json created');
 
-    // execSync(`cd ${projectName} && npm install`);
+
+    execSync(`cd ${projectName} && npm install`);
+    logBlue('* cd project-name && npm install completed');
 
     logBlue('==== SETUP COMPLETED ===');
     logBlue('=> cd into project folder');
