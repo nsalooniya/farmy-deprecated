@@ -1,23 +1,41 @@
 const State = require('../lib/asm');
 
-const _ = new State({
-    appName: String,
-    i: Number
+// == create state
+const __state__ = new State({
+    name: [String, 'Counter App'],
+    counter: [Number, 0],
+    interval: [null]
 });
 
-_.set('appName', 'Farmy')
-_.set('i', 1)
+// == create extentions and acts
 
-const updatedKeyLogger = (key) => {
-    console.log(key);
+const init = () => setInterval(__state__.exts['inc'], 1000);
+
+const inc = () => {
+    __state__.set('counter', __state__.get('counter') + 1)
 };
 
-const increment = (n) => {
-    _.set('i', _.get('i') + n)
+const logger = (key) => {
+    if (key === __state__.getKey('counter')) {
+        console.log(`${__state__.get('counter')} seconds passed`);
+    }
 };
 
-_.act(updatedKeyLogger);
-_.ext('inc', increment);
+// == add extentions and acts
 
-_.extor('inc', 1);
-_.set('appName', 'FARMY')
+__state__.ext('init', init);
+__state__.ext('inc', inc);
+__state__.act('logger', logger);
+
+console.log(__state__);
+
+// == start 
+__state__.set('interval', __state__.exts['init']())
+
+setTimeout(() => {
+    clearInterval(__state__.get('interval'));
+    __state__.delete('interval')
+    delete __state__.acts['logger'];
+    console.log(__state__);
+}, 5*1000);
+

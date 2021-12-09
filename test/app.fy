@@ -1,23 +1,41 @@
 const State = require('../lib/asm');
 
+// == create state
 const & = new State({
-    appName: String,
-    i: Number
+    name: [String, 'Counter App'],
+    counter: [Number, 0],
+    interval: [null]
 });
 
-&:appName = 'Farmy';
-&:i = 1;
+// == create extentions and acts
 
-const updatedKeyLogger = (key) => {
-    console.log(key);
+const init = () => setInterval(& # inc, 1000);
+
+const inc = () => {
+    &:counter = &:counter + 1;
 };
 
-const increment = (n) => {
-    &:i = &:i + n;
+const logger = (key) => {
+    if (key === &::counter) {
+        console.log(`${&:counter} seconds passed`);
+    }
 };
 
-& @ updatedKeyLogger;
-& @ inc = increment;
+// == add extentions and acts
 
-& @ inc (1);
-&:appName = 'FARMY';
+& ## init;
+& ## inc;
+& @@ logger;
+
+console.log(&);
+
+// == start 
+&:interval = & # init();
+
+setTimeout(() => {
+    clearInterval(&:interval);
+    delete &:interval;
+    delete & @ logger;
+    console.log(&);
+}, 5*1000);
+

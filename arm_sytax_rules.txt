@@ -1,0 +1,41 @@
+// ==== ARM Syntax Rules
+
+* & is replaced with __state__ internally
+
+- create new state
+const stateName = new State();
+
+- create state key
+const/let type/null stateName:keyName = keyValue/undefined;
+
+- get state key
+stateName::keyName
+
+- read state keyValue
+stateName:keyName;
+
+- update state keyValue
+stateName:keyName = keyValue;
+
+- delete state key
+delete stateName:keyName;
+
+- set action function
+stateName @ actName = function;
+stateName @@ actFunctionName;
+
+- get action function
+stateName @ actName;
+
+- delete action function
+delete stateName @ actName;
+
+- set extention function
+stateName # extName = function;
+stateName ## extFunctionName;
+
+- get extention function
+stateName # extName;
+
+- delete extention function
+delete stateName @ extName;
