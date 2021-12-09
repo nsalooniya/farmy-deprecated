@@ -1,0 +1,6 @@
+// view.js eval multiline js run script
+// view.js web api html sanitizer
+// router.js web api path finder
+
+let Number x = 5;
+let x;
