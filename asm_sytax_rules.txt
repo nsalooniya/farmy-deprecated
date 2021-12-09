@@ -1,4 +1,4 @@
-// ==== ARM Syntax Rules
+// ==== ASM Syntax Rules
 
 * & is replaced with __state__ internally
 
