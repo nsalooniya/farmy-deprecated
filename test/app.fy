@@ -1,41 +1,36 @@
-const State = require('../lib/asm');
+import State from '../lib/asm.js';
+import Router from '../lib/arm.js';
 
-// == create state
-const & = new State({
-    name: [String, 'Counter App'],
-    counter: [Number, 0],
-    interval: [null]
+const timer = (t) => new Promise((resolve) => {
+    setTimeout(() => {
+        resolve();
+    }, t);
 });
 
-// == create extentions and acts
-
-const init = () => setInterval(& # inc, 1000);
-
-const inc = () => {
-    &:counter = &:counter + 1;
+const logAsync = (log, time) => async function ({params}) {
+    console.log(log);
+    if (time) await timer(time);
 };
 
-const logger = (key) => {
-    if (key === &::counter) {
-        console.log(`${&:counter} seconds passed`);
-    }
-};
+const router = new Router();
+const users = new Router();
 
-// == add extentions and acts
+router ENV browser;
 
-& ## init;
-& ## inc;
-& @@ logger;
+@ router
+#
+# USE logAsync('PATH /');
+# PATH '/' logAsync('PATH /');
+# PATH '/home' logAsync('PATH /home');
+# PATH '/about' logAsync('PATH /about');
+# ROUTE '/users' users;
+# PATH '/~' logAsync('PATH not found');
+@
 
-console.log(&);
+@ users
+#
+# PATH '/' logAsync('PATH /users');
+# PATH '/:id' logAsync('PATH /users/:id');
+@
 
-// == start 
-&:interval = & # init();
-
-setTimeout(() => {
-    clearInterval(&:interval);
-    delete &:interval;
-    delete & @ logger;
-    console.log(&);
-}, 5*1000);
-
+router RUN;

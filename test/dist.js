@@ -1,41 +1,30 @@
-const State = require('../lib/asm');
+import State from '../lib/asm.js';
+import Router from '../lib/arm.js';
 
-// == create state
-const __state__ = new State({
-    name: [String, 'Counter App'],
-    counter: [Number, 0],
-    interval: [null]
+const timer = (t) => new Promise((resolve) => {
+    setTimeout(() => {
+        resolve();
+    }, t);
 });
 
-// == create extentions and acts
-
-const init = () => setInterval(__state__.exts['inc'], 1000);
-
-const inc = () => {
-    __state__.set('counter', __state__.get('counter') + 1)
+const logAsync = (log, time) => async function ({params}) {
+    console.log(log);
+    if (time) await timer(time);
 };
 
-const logger = (key) => {
-    if (key === __state__.getKey('counter')) {
-        console.log(`${__state__.get('counter')} seconds passed`);
-    }
-};
+const router = new Router();
+const users = new Router();
 
-// == add extentions and acts
+router.env('browser');
 
-__state__.ext('init', init);
-__state__.ext('inc', inc);
-__state__.act('logger', logger);
+router.use(logAsync('PATH /'));
+router.path('/', logAsync('PATH /'));
+router.path('/home', logAsync('PATH /home'));
+router.path('/about', logAsync('PATH /about'));
+router.route('/users', users);
+router.path('/~', logAsync('PATH not found'));
 
-console.log(__state__);
+users.path('/', logAsync('PATH /users'));
+users.path('/:id', logAsync('PATH /users/:id'));
 
-// == start 
-__state__.set('interval', __state__.exts['init']())
-
-setTimeout(() => {
-    clearInterval(__state__.get('interval'));
-    __state__.delete('interval')
-    delete __state__.acts['logger'];
-    console.log(__state__);
-}, 5*1000);
-
+router.run();

@@ -39,3 +39,9 @@ stateName # extName;
 
 - delete extention function
 delete stateName @ extName;
+
+- save state
+save stateName tagName;
+
+- load state
+load stateName tagName;
