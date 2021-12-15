@@ -211,7 +211,7 @@ try {
         "author": "Nikhil Salooniya",
         "license": "ISC",
         "dependencies": {
-            "farmy": `^${pkg.version}`
+            "farmy-beta": `^${pkg.version}`
         },
         "devDependencies": {
             "css-loader": "^5.2.4",
