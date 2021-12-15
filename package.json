@@ -4,7 +4,7 @@
   "description": "Powerful, modern and fast web framework",
   "main": "index.js",
   "bin": {
-    "farmy": "workers/cli.js"
+    "farmy": "workers/cli.cjs"
   },
   "type": "module",
   "scripts": {
