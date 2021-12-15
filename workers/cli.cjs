@@ -180,9 +180,9 @@ try {
     logYellow('* src folder created');
 
     // src app.js
-    fs.writeFileSync(rootPath + '/src/app.js', `
+    fs.writeFileSync(rootPath + '/src/app.fy', `
 
-    import {$} from 'farmy';
+    import {$} from 'farmy-beta';
 
     const $root = $('#root');
     $root.innerHTML('<h1>${projectName}</h1>');
