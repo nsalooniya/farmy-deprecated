@@ -188,7 +188,7 @@ try {
     $root.innerHTML('<h1>${projectName}</h1>');
 
     `);
-    logYellow('* src/app.js created');
+    logYellow('* src/app.fy created');
 
     // package json
     const pkgPATH = path.resolve(__dirname, '../package.json');
