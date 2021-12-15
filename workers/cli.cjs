@@ -180,14 +180,47 @@ try {
     logYellow('* src folder created');
 
     // src app.js
-    fs.writeFileSync(rootPath + '/src/app.fy', `
+    fs.writeFileSync(rootPath + '/src/app.fy', 
+    `import {State, Router, Component, View, $} from 'farmy-beta';
 
-    import {$} from 'farmy-beta';
+const timer = (t) => new Promise((resolve) => {
+    setTimeout(() => {
+        resolve();
+    }, t);
+});
 
-    const $root = $('#root');
-    $root.innerHTML('<h1>${projectName}</h1>');
+const logAsync = (log, time) => async function ({params}) {
+    console.log(log);
+    if (time) await timer(time);
+    &:appName = log;
+};
 
-    `);
+const & = new State();
+const router = new Router();
+
+let String &:appName = undefined;
+const $.List &:root = $('#root');
+
+&::appName @ update = function () {
+    &:root.innerHTML(`<h1>${&:appName}</h1>`);
+};
+
+router ENV browser;
+
+@ router :
+#
+# USE logAsync('USE /');
+#
+# PATH '/' logAsync('PATH /');
+# PATH '/home' logAsync('PATH /home');
+# PATH '/about' logAsync('PATH /about');
+#
+# PATH '/~' logAsync('PATH not found');
+@
+
+router RUN;
+
+`);
     logYellow('* src/app.fy created');
 
     // package json
