@@ -40,7 +40,7 @@ const ASMCompiler = function (code) {
 
     // - get key action function
     // stateName::keyName @ actName;
-    regex = /(\w+)::(\w+)\s@\s(\w+)/g;
+    regex = /(\w+)::(\w+)\s@\s([^\s]+)/g;
     matches = Array.from(code.matchAll(regex));
     matches.forEach(match => {
         code = code.replaceAll(match[0], `${match[1]}.getKey('${match[2]}').acts['${match[3]}']`);
@@ -153,7 +153,7 @@ const ARMCompiler = function (code) {
     let regex, matches;
 
     // - add multiple routes
-    regex = /@\s(\w+)([^@]+)@/g;
+    regex = /@\s(\w+)\s:([^@]+)@/g;
     matches = Array.from(code.matchAll(regex));
     matches.forEach(match => {
         const replaceCode = match[2].split('#').map(c => c.trim()).filter(c => c !== '').map(c => `${match[1]} ${c}`).join('\n');
@@ -242,7 +242,6 @@ const farmyCompiler = function (code) {
 };
 
 exports.default = function (source, map) {
-    console.log('!!!!!', map);
     this.callback(
         null,
         farmyCompiler(source),

@@ -28,7 +28,7 @@ router RUN url;
 router ENV browser/node;
 
 - add multiple routes
-@ router
+@ router :
 # USE fn;
 # PATH /p?a=t#h fn;
 # PATH /p?a=t#h fn;
