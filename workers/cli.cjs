@@ -202,7 +202,7 @@ let String &:appName = undefined;
 const $.List &:root = $('#root');
 
 &::appName @ update = function () {
-    &:root.innerHTML(`<h1>${&:appName}</h1>`);
+    &:root.innerHTML(\`<h1>\${&:appName}</h1>\`);
 };
 
 router ENV browser;
