@@ -4,15 +4,15 @@
   "description": "Powerful, modern and fast web framework",
   "main": "index.js",
   "bin": {
-    "farmy": "cli.js"
+    "farmy": "workers/cli.js"
   },
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack serve --open",
-    "watch": "webpack --watch",
-    "build": "webpack",
-    "upload": "node upload.js"
+    "start": "webpack serve --open --config workers/webpack.config.js",
+    "watch": "webpack --watch --config workers/webpack.config.js",
+    "build": "webpack --config workers/webpack.config.js",
+    "upload": "node workers/upload.cjs"
   },
   "author": "salooniya <saloniyanikhil@gamil.com>",
   "devDependencies": {

@@ -4,7 +4,7 @@ const __dirname = path.resolve();
 export default {
     mode: 'development',
     entry: {
-        app: './test/src/app.js'
+        app: './test/src/app.fy'
     },
     output: {
         filename: '[name].js',
@@ -14,5 +14,15 @@ export default {
     devServer: {
         contentBase: path.resolve(__dirname, 'test/public/'),
         historyApiFallback: true
+    },
+    module: {
+        rules: [
+            {
+                test: /\.fy$/,
+                use: [{
+                    loader: path.resolve('./workers/farmy-loader.cjs')
+                }]
+            }
+        ]
     }
 };

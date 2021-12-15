@@ -176,7 +176,7 @@ try {
     logYellow('* src/app.js created');
 
     // package json
-    const pkgPATH = path.resolve(__dirname, `./package.json`);
+    const pkgPATH = path.resolve(`./package.json`);
     const pkg = JSON.parse(fs.readFileSync(pkgPATH, 'utf8'));
     logYellow('* farmy/package.json read completed');
 
