@@ -7,6 +7,9 @@ const stateName = new State();
 
 - create state key
 const/let type/null stateName:keyName = keyValue/undefined;
+const/let type/null stateName:keyName;
+const/let stateName:keyName = keyValue/undefined;
+const/let stateName:keyName;
 
 - get state key
 stateName::keyName
@@ -27,6 +30,9 @@ stateName @@ actFunctionName;
 - get action function
 stateName @ actName;
 
+- get key action function
+stateName::keyName @ actName;
+
 - delete action function
 delete stateName @ actName;
 
@@ -45,3 +51,11 @@ save stateName tagName;
 
 - load state
 load stateName tagName;
+
+- state function
+(a::Number, b::Number) {
+    return a + b;
+} type;
+
+- state type
+a..type

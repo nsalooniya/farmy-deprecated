@@ -1,6 +1,5 @@
 {
-  "name": "farmy",
-  "version": "1.0.0",
+  "name": "farmy-beta",
   "description": "",
   "main": "index.js",
   "type": "module",

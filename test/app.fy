@@ -1,5 +1,4 @@
-import State from '../lib/asm.js';
-import Router from '../lib/arm.js';
+import {State, Router, Component, View, $} from '../index.js';
 
 const timer = (t) => new Promise((resolve) => {
     setTimeout(() => {
@@ -10,6 +9,7 @@ const timer = (t) => new Promise((resolve) => {
 const logAsync = (log, time) => async function ({params}) {
     console.log(log);
     if (time) await timer(time);
+    &:appName = log;
 };
 
 const router = new Router();
@@ -20,10 +20,13 @@ router ENV browser;
 @ router
 #
 # USE logAsync('PATH /');
+#
 # PATH '/' logAsync('PATH /');
 # PATH '/home' logAsync('PATH /home');
-# PATH '/about' logAsync('PATH /about');
+# PATH '/about' logAsync('PATH /about', 1000);
+# 
 # ROUTE '/users' users;
+#
 # PATH '/~' logAsync('PATH not found');
 @
 
@@ -34,3 +37,24 @@ router ENV browser;
 @
 
 router RUN;
+
+const & = new State();
+let String &:appName = undefined;
+
+let null &:a = 4;
+
+const Dom = new State();
+const $.List Dom:root = $('#root');
+
+&::appName @ update = function () {
+    Dom:root.innerHTML(`<h1>${&:appName}</h1>`);
+};
+
+// ****
+
+const sum = (a: Number, b: Number) => {
+    return a + b;
+} Number;
+
+console.log(sum(1, 2));
+

@@ -11,11 +11,41 @@ const ASMCompiler = function (code) {
         code = code.replaceAll(match[0], `__state__`);
     });
 
+    // a..type
+    regex = /(\w+)\.\.type/g;
+    matches = Array.from(code.matchAll(regex));
+    matches.forEach(match => {
+        code = code.replaceAll(match[0], `${match[1]}.constructor`);
+    });
+
+    // (a: type, b: type) => { body } type
+    regex = /\(([^\)]+)\)\s=>\s\{([^\~]+)\}\s(\w+)/g;
+    matches = Array.from(code.matchAll(regex));
+    matches.forEach(match => {
+        const paramsObj = `{${match[1]}}`;
+        const params = match[1].split(',').map(p => p.split(':')[0].trim()).join(',');
+        code = code.replaceAll(match[0], `State.fn(${paramsObj}, function (${params}) {${match[2]}}, ${match[3]})`);
+    });
+    // const sum = State.fn({
+    //     'a': Number,
+    //     'b': Number,
+    // }, (a, b) => {
+    //     return a + b;
+    // }, Number);
+
     // const/let type/null stateName:keyName = keyValue/undefined;
-    regex = /(\w+)\s(\w+)\s(\w+):(\w+)\s=\s(.+);/g;
+    regex = /(\w+)\s([^\s]+)\s(\w+):(\w+)\s=\s([^;]+);/g;
     matches = Array.from(code.matchAll(regex));
     matches.forEach(match => {
         code = code.replaceAll(match[0], `${match[3]}.${match[1]}(${match[2]}, '${match[4]}', ${match[5]});`);
+    });
+
+    // - get key action function
+    // stateName::keyName @ actName;
+    regex = /(\w+)::(\w+)\s@\s(\w+)/g;
+    matches = Array.from(code.matchAll(regex));
+    matches.forEach(match => {
+        code = code.replaceAll(match[0], `${match[1]}.getKey('${match[2]}').acts['${match[3]}']`);
     });
 
     // stateName:keyName = keyValue;
