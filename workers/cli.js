@@ -40,10 +40,7 @@ try {
             app: './src/app.js'
         },
         output: {
-            filename: '[name].js',
-            // path: path.resolve(__dirname, 'public')
-            // path: path.resolve(__dirname, '../dist-pro')
-            // path: path.resolve(__dirname, '../public')
+            filename: '[name].fy',
             path: path.resolve(__dirname, '../build')
         },
         devtool: 'source-map',
@@ -66,6 +63,12 @@ try {
                     generator: {
                         filename: '[name][ext]'
                     }
+                },
+                {
+                    test: /\.fy$/,
+                    use: [{
+                        loader: path.resolve('./config/farmy-loader.cjs')
+                    }]
                 }
             ]
         }
@@ -81,11 +84,10 @@ try {
     module.exports = {
         mode: 'development',
         entry: {
-            app: './src/app.js'
+            app: './src/app.fy'
         },
         output: {
             filename: '[name].js',
-            // path: path.resolve(__dirname, '../public')
             path: path.resolve(__dirname, '../build')
         },
         devtool: 'inline-source-map',
@@ -114,12 +116,25 @@ try {
                     generator: {
                         filename: '[name][ext]'
                     }
+                },
+                {
+                    test: /\.fy$/,
+                    use: [{
+                        loader: path.resolve('./config/farmy-loader.cjs')
+                    }]
                 }
             ]
         }
     };
     `);
     logYellow('* config/webpack.dev.js created');
+    
+    // config farmy-loader
+    const loaderFilePATH = path.resolve('./farmy-loader.cjs');
+    const loaderFile = fs.readFileSync(loaderFilePATH, 'utf8');
+    fs.writeFileSync(rootPath + '/config/farmy-loader.cjs', loaderFile);
+    logYellow('* config/farmy-loader.cjs created');
+    // ====
 
     fs.mkdirSync(rootPath + '/public', {
         recursive: true
