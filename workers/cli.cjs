@@ -130,7 +130,7 @@ try {
     logYellow('* config/webpack.dev.js created');
     
     // config farmy-loader
-    const loaderFilePATH = path.resolve('./farmy-loader.cjs');
+    const loaderFilePATH = path.resolve(__dirname, './farmy-loader.cjs');
     const loaderFile = fs.readFileSync(loaderFilePATH, 'utf8');
     fs.writeFileSync(rootPath + '/config/farmy-loader.cjs', loaderFile);
     logYellow('* config/farmy-loader.cjs created');
@@ -191,7 +191,7 @@ try {
     logYellow('* src/app.js created');
 
     // package json
-    const pkgPATH = path.resolve(`./package.json`);
+    const pkgPATH = path.resolve(__dirname, '../package.json');
     const pkg = JSON.parse(fs.readFileSync(pkgPATH, 'utf8'));
     logYellow('* farmy/package.json read completed');
 
