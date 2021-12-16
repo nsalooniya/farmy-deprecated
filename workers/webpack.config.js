@@ -20,7 +20,7 @@ export default {
             {
                 test: /\.fy$/,
                 use: [{
-                    loader: path.resolve('./workers/farmy-loader.cjs')
+                    loader: path.resolve(__dirname, './workers/farmy-loader.cjs')
                 }]
             }
         ]

@@ -17,7 +17,7 @@ const users = new Router();
 
 router ENV browser;
 
-@ router
+@ router :
 #
 # USE logAsync('PATH /');
 #
@@ -30,7 +30,7 @@ router ENV browser;
 # PATH '/~' logAsync('PATH not found');
 @
 
-@ users
+@ users :
 #
 # PATH '/' logAsync('PATH /users');
 # PATH '/:id' logAsync('PATH /users/:id');
