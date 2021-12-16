@@ -1,4 +1,5 @@
 const path = require('path');
+const farmyLoaderPath = path.resolve(require.resolve('${pkgName}'), '../workers/farmy-loader.cjs');
 
 module.exports = {
     mode: 'production',
@@ -33,7 +34,7 @@ module.exports = {
             {
                 test: /\.fy$/,
                 use: [{
-                    loader: path.resolve('./config/farmy-loader.cjs')
+                    loader: farmyLoaderPath
                 }]
             }
         ]

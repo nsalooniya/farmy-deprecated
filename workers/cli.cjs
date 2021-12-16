@@ -12,6 +12,8 @@ const readFile = function (resolvePath) {
     return fs.readFileSync(path.resolve(__dirname, resolvePath), 'utf8');
 };
 
+const pkg = JSON.parse(readFile('../package.json'));
+
 try {
 
     // setup start
@@ -35,11 +37,15 @@ try {
     logYellow('* config/webpack.prod.js created');
 
     // config/webpack.dev.js
-    fs.writeFileSync(rootPath + '/config/webpack.dev.js', readFile('./webpack.dev.js'));
+    fs.writeFileSync(rootPath + '/config/webpack.dev.js', readFile('./webpack.dev.js')
+    .replaceAll('${pkgName}', pkg.name)
+    );
     logYellow('* config/webpack.dev.js created');
     
     // config/farmy-loader.cjs
-    fs.writeFileSync(rootPath + '/config/farmy-loader.cjs', readFile('./farmy-loader.cjs'));
+    fs.writeFileSync(rootPath + '/config/farmy-loader.cjs', readFile('./farmy-loader.cjs')
+    .replaceAll('${pkgName}', pkg.name)
+    );
     logYellow('* config/farmy-loader.cjs created');
 
     // public/
@@ -55,11 +61,12 @@ try {
     logYellow('* src/ created');
 
     // src/app.fy
-    fs.writeFileSync(rootPath + '/src/app.fy', readFile('./app.fy'));
+    fs.writeFileSync(rootPath + '/src/app.fy', readFile('./app.fy')
+    .replaceAll('${projectName}', projectName)
+    );
     logYellow('* src/app.fy created');
 
     // package.json
-    const pkg = JSON.parse(readFile('../package.json'));
     fs.writeFileSync(rootPath + '/package.json', readFile('./pkg.json')
     .replaceAll('${projectName}', projectName)
     .replaceAll('${pkgName}', pkg.name)
