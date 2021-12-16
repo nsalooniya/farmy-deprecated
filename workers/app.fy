@@ -1,4 +1,4 @@
-import {State, Router, Component, View, $} from 'farmy-beta';
+import {State, Router, Component, View, $} from '${pkgName}';
 
 const timer = (t) => new Promise((resolve) => {
     setTimeout(() => {

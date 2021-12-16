@@ -58,7 +58,7 @@ try {
 
     // src/app.fy
     fs.writeFileSync(rootPath + '/src/app.fy', readFile('./app.fy')
-    .replaceAll('${projectName}', projectName)
+    .replaceAll('${pkgName}', pkg.name)
     );
     logYellow('* src/app.fy created');
 
