@@ -8,269 +8,71 @@ const logYellow = (log) => console.log('\x1b[33m%s\x1b[89m', log);
 const logBlue = (log) => console.log('\x1b[36m%s\x1b[89m', log);
 const logRed = (log) => console.log('\x1b[31m%s\x1b[89m', log);
 
-logBlue('==== SETTING THINGS UP ===');
-logBlue('=> this may take some time');
-
+const readFile = function (resolvePath) {
+    return fs.readFileSync(path.resolve(__dirname, resolvePath), 'utf8');
+};
 
 try {
 
-    // const rootPath = path.resolve(__dirname, '../..');
-    let rootPath = process.env.PWD;
-    const projectName = process.argv[2] || 'farmy';
+    // setup start
+    logBlue('==== SETTING THINGS UP ===');
+    logBlue('=> this may take some time');
 
-    // ==== make project root folder
-    rootPath = rootPath + '/' + projectName;
+    // get project name and root path
+    const projectName = process.argv[2] || 'farmy';
+    const rootPath = process.env.PWD + '/' + projectName;
+
+    // make project root folder
     fs.mkdirSync(rootPath);
     logYellow('* project root folder created');
-    // ====
 
-    fs.mkdirSync(rootPath + '/config', {
-        recursive: true
-    });
-    logYellow('* config folder created');
+    // config/
+    fs.mkdirSync(rootPath + '/config', { recursive: true });
+    logYellow('* config/ created');
 
-    // config webpack prod
-    fs.writeFileSync(rootPath + '/config/webpack.prod.js', `
-
-    const path = require('path');
-
-    module.exports = {
-        mode: 'production',
-        entry: {
-            app: './src/app.js'
-        },
-        output: {
-            filename: '[name].fy',
-            path: path.resolve(__dirname, '../build')
-        },
-        devtool: 'source-map',
-        resolve: {
-            extensions: ['.js', '.json']
-        },
-        module: {
-            rules: [
-                {
-                    test: /\.s[ac]ss$/i,
-                    use: ['style-loader', 'css-loader', 'sass-loader']
-                },
-                {
-                    test: /\.css$/i,
-                    use: ['style-loader', 'css-loader']
-                },
-                {
-                    test: /\.(png|jpg|jpeg|svg)$/i,
-                    type: 'asset/resource',
-                    generator: {
-                        filename: '[name][ext]'
-                    }
-                },
-                {
-                    test: /\.fy$/,
-                    use: [{
-                        loader: path.resolve('./config/farmy-loader.cjs')
-                    }]
-                }
-            ]
-        }
-    };
-
-    `);
+    // config/webpack.prod.js
+    fs.writeFileSync(rootPath + '/config/webpack.prod.js', readFile('./webpack.prod.js'));
     logYellow('* config/webpack.prod.js created');
 
-    // config webpack dev
-    fs.writeFileSync(rootPath + '/config/webpack.dev.js', `
-    const path = require('path');
-
-    module.exports = {
-        mode: 'development',
-        entry: {
-            app: './src/app.fy'
-        },
-        output: {
-            filename: '[name].js',
-            path: path.resolve(__dirname, '../build')
-        },
-        devtool: 'inline-source-map',
-        devServer: {
-            port: 3000,
-            contentBase: ['./public'],
-            watchContentBase: true,
-            historyApiFallback: true
-        },
-        resolve: {
-            extensions: ['.js', '.json']
-        },
-        module: {
-            rules: [
-                {
-                    test: /.s[ac]ss$/i,
-                    use: ['style-loader', 'css-loader', 'sass-loader']
-                },
-                {
-                    test: /.css$/i,
-                    use: ['style-loader', 'css-loader']
-                },
-                {
-                    test: /.(png|jpg|jpeg|svg)$/i,
-                    type: 'asset/resource',
-                    generator: {
-                        filename: '[name][ext]'
-                    }
-                },
-                {
-                    test: /\.fy$/,
-                    use: [{
-                        loader: path.resolve('./config/farmy-loader.cjs')
-                    }]
-                }
-            ]
-        }
-    };
-    `);
+    // config/webpack.dev.js
+    fs.writeFileSync(rootPath + '/config/webpack.dev.js', readFile('./webpack.dev.js'));
     logYellow('* config/webpack.dev.js created');
     
-    // config farmy-loader
-    const loaderFilePATH = path.resolve(__dirname, './farmy-loader.cjs');
-    const loaderFile = fs.readFileSync(loaderFilePATH, 'utf8');
-    fs.writeFileSync(rootPath + '/config/farmy-loader.cjs', loaderFile);
+    // config/farmy-loader.cjs
+    fs.writeFileSync(rootPath + '/config/farmy-loader.cjs', readFile('./farmy-loader.cjs'));
     logYellow('* config/farmy-loader.cjs created');
-    // ====
 
-    fs.mkdirSync(rootPath + '/public', {
-        recursive: true
-    });
-    logYellow('* public folder created');
+    // public/
+    fs.mkdirSync(rootPath + '/public', { recursive: true });
+    logYellow('* public/ created');
 
-    // public index.html
-    fs.writeFileSync(rootPath + '/public/index.html', `
-
-    <!doctype html>
-    <html lang="en">
-    <head>
-        <!--  meta  -->
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <meta name="description" content="Farmy Project">
-
-        <!--  script  -->
-        <script src="/app.js" defer></script>
-
-        <!--  title  -->
-        <title>${projectName}</title>
-    </head>
-    <body>
-
-    <!--  root  -->
-    <div id="root"></div>
-
-    <!--  noscript  -->
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-
-    </body>
-    </html>
-
-    `);
+    // public/index.html
+    fs.writeFileSync(rootPath + '/public/index.html', readFile('./index.html'));
     logYellow('* public/index.html created');
 
+    // src/
+    fs.mkdirSync(rootPath + '/src', { recursive: true });
+    logYellow('* src/ created');
 
-    fs.mkdirSync(rootPath + '/src', {
-        recursive: true
-    });
-    logYellow('* src folder created');
-
-    // src app.js
-    fs.writeFileSync(rootPath + '/src/app.fy', 
-    `import {State, Router, Component, View, $} from 'farmy-beta';
-
-const timer = (t) => new Promise((resolve) => {
-    setTimeout(() => {
-        resolve();
-    }, t);
-});
-
-const logAsync = (log, time) => async function ({params}) {
-    console.log(log);
-    if (time) await timer(time);
-    &:appName = log;
-};
-
-const & = new State();
-const router = new Router();
-
-let String &:appName = undefined;
-const $.List &:root = $('#root');
-
-&::appName @ update = function () {
-    &:root.innerHTML(\`<h1>\${&:appName}</h1>\`);
-};
-
-router ENV browser;
-
-@ router :
-#
-# USE logAsync('USE /');
-#
-# PATH '/' logAsync('PATH /');
-# PATH '/home' logAsync('PATH /home');
-# PATH '/about' logAsync('PATH /about');
-#
-# PATH '/~' logAsync('PATH not found');
-@
-
-router RUN;
-
-`);
+    // src/app.fy
+    fs.writeFileSync(rootPath + '/src/app.fy', readFile('./app.fy'));
     logYellow('* src/app.fy created');
 
-    // package json
-    const pkgPATH = path.resolve(__dirname, '../package.json');
-    const pkg = JSON.parse(fs.readFileSync(pkgPATH, 'utf8'));
-    logYellow('* farmy/package.json read completed');
-
-    fs.writeFileSync(rootPath + '/package.json', JSON.stringify({
-        "name": projectName,
-        "version": "0.0.0",
-        "description": projectName,
-        "main": "index.js",
-        "scripts": {
-            "test": "echo \"Error: no test specified\" && exit 1",
-            "start": "webpack serve --open --config config/webpack.dev.js",
-            "watch:dev": "webpack -watch --config config/webpack.dev.js",
-            "watch:prod": "webpack -watch --config config/webpack.prod.js",
-            "build:dev": "rm -rf build/ && webpack --config config/webpack.dev.js && cp -r public/* build",
-            "build:prod": "rm -rf build/ && webpack --config config/webpack.prod.js && cp -r public/* build"
-        },
-        "author": "Nikhil Salooniya",
-        "license": "ISC",
-        "dependencies": {
-            "farmy-beta": `^${pkg.version}`
-        },
-        "devDependencies": {
-            "css-loader": "^5.2.4",
-            "sass": "^1.32.12",
-            "sass-loader": "^11.0.1",
-            "style-loader": "^2.0.0",
-            "webpack": "^5.36.2",
-            "webpack-cli": "^4.7.0",
-            "webpack-dev-server": "^3.11.2"
-        },
-        "__devDependencies": {
-            "css-loader": "5.2.6",
-            "sass": "1.34.1",
-            "sass-loader": "12.1.0",
-            "style-loader": "2.0.0",
-            "webpack": "5.38.1",
-            "webpack-cli": "4.7.2",
-            "webpack-dev-server": "3.11.2"
-        }
-    }));
+    // package.json
+    const pkg = JSON.parse(readFile('../package.json'));
+    fs.writeFileSync(rootPath + '/package.json', readFile('./pkg.json')
+    .replaceAll('${projectName}', projectName)
+    .replaceAll('${pkgName}', pkg.name)
+    .replaceAll('${version}', pkg.version)
+    );
     logYellow('* package.json created');
 
 
+    // install dependencies
     execSync(`cd ${projectName} && npm install`);
     logBlue('* cd project-name && npm install completed');
 
+    // setup completed
     logBlue('==== SETUP COMPLETED ===');
     logBlue('=> cd into project folder');
     logBlue('=> npm start');
