@@ -41,19 +41,15 @@ try {
     .replaceAll('${pkgName}', pkg.name)
     );
     logYellow('* config/webpack.dev.js created');
-    
-    // config/farmy-loader.cjs
-    fs.writeFileSync(rootPath + '/config/farmy-loader.cjs', readFile('./farmy-loader.cjs')
-    .replaceAll('${pkgName}', pkg.name)
-    );
-    logYellow('* config/farmy-loader.cjs created');
 
     // public/
     fs.mkdirSync(rootPath + '/public', { recursive: true });
     logYellow('* public/ created');
 
     // public/index.html
-    fs.writeFileSync(rootPath + '/public/index.html', readFile('./index.html'));
+    fs.writeFileSync(rootPath + '/public/index.html', readFile('./index.html')
+    .replaceAll('${projectName}', projectName)
+    );
     logYellow('* public/index.html created');
 
     // src/
