@@ -1,0 +1,61 @@
+// ==== ASM Syntax Rules
+
+* & is replaced with __state__ internally
+
+- create new state
+const stateName = new State();
+
+- create state key
+const/let type/null stateName:keyName = keyValue/undefined;
+const/let type/null stateName:keyName;
+const/let stateName:keyName = keyValue/undefined;
+const/let stateName:keyName;
+
+- get state key
+stateName::keyName
+
+- read state keyValue
+stateName:keyName;
+
+- update state keyValue
+stateName:keyName = keyValue;
+
+- delete state key
+delete stateName:keyName;
+
+- set action function
+stateName @ actName = function;
+stateName @@ actFunctionName;
+
+- get action function
+stateName @ actName;
+
+- get key action function
+stateName::keyName @ actName;
+
+- delete action function
+delete stateName @ actName;
+
+- set extention function
+stateName # extName = function;
+stateName ## extFunctionName;
+
+- get extention function
+stateName # extName;
+
+- delete extention function
+delete stateName @ extName;
+
+- save state
+save stateName tagName;
+
+- load state
+load stateName tagName;
+
+- state function
+(a::Number, b::Number) {
+    return a + b;
+} type;
+
+- state type
+a..type

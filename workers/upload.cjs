@@ -14,7 +14,7 @@ if (message && version) {
         execSync(`git commit -m "${message}"`);
         logBlue(`=> npm version ${version}`);
         execSync(`npm version ${version}`);
-        logBlue(`=> git push`);
+        logBlue(`=> git push -u origin`);
         execSync(`git push`);
         logBlue(`=> npm publish`);
         execSync(`npm publish`);

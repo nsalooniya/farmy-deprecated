@@ -1,0 +1,36 @@
+// ==== ARM Syntax Rules
+
+- create router
+const router = new Router();
+
+- add pre hook
+router PRE fn;
+
+- add post hook
+router POST fn;
+
+- add use fn
+router USE fn;
+
+- add path fn
+router PATH /p?a=t#h fn;
+
+- add route fn
+router PATH /p?a=t#h fn;
+
+- run router with current location.href
+router RUN;
+
+- run router with url
+router RUN url;
+
+- set router env
+router ENV browser/node;
+
+- add multiple routes
+@ router :
+# USE fn;
+# PATH /p?a=t#h fn;
+# PATH /p?a=t#h fn;
+# ROUTE /p?a=t#h router;
+@

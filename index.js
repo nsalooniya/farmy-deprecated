@@ -1,13 +1,13 @@
-import $ from './lib/dom';
-import Component from "./lib/component";
-import View from "./lib/view";
-import State from "./lib/state";
-import Router from "./lib/router";
+import State from './lib/asm.js';
+import Router from './lib/arm.js';
+import Component from './lib/acm.js';
+import View from './lib/avm.js';
+import $ from './lib/adm.js';
 
 export {
-	$,
-	Component,
-	View,
-	State,
-	Router
+    State,
+    Router,
+    Component,
+    View,
+    $
 };
