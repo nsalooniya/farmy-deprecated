@@ -12,49 +12,59 @@ const logAsync = (log, time) => async function ({params}) {
     &:appName = log;
 };
 
-const router = new Router();
-const users = new Router();
-
-router ENV browser;
-
-@ router :
-#
-# USE logAsync('PATH /');
-#
-# PATH '/' logAsync('PATH /');
-# PATH '/home' logAsync('PATH /home');
-# PATH '/about' logAsync('PATH /about', 1000);
-# 
-# ROUTE '/users' users;
-#
-# PATH '/~' logAsync('PATH not found');
-@
-
-@ users :
-#
-# PATH '/' logAsync('PATH /users');
-# PATH '/:id' logAsync('PATH /users/:id');
-@
-
-router RUN;
-
-const & = new State();
-let String &:appName = undefined;
-
-let null &:a = 4;
-
 const Dom = new State();
 const $.List Dom:root = $('#root');
+let String Dom:data = 'ABCD';
+let String Dom:name = 'name';
+let Array Dom:arr = [{
+    i: 1,
+    name : 'a'
+}, {
+    i: 2,
+    name: 'b'
+}];
 
-&::appName @ update = function () {
-    Dom:root.innerHTML(`<h1>${&:appName}</h1>`);
-};
+// const view = new View(`
+//     <div id="test">
+//         <act id="act-1">[@data #act-1]</act>
+//         <act id="act-2">[@name #act-2]</act>
+//     </div>
+// `);
 
-// ****
+const view2 = new View(`
+    <div>
+        <br>
+        <act arr (
+            <div>[i] . [name]</div>
+        )>
+        <hr>
+        <act arr2 (
+            <div>[i] = [name]</div>
+        )>
+        <br>
+    </div>
+`);
 
-const sum = (a: Number, b: Number) => {
-    return a + b;
-} Number;
+console.log(view2);
 
-console.log(sum(1, 2));
+Dom:root.innerHTML(view2.get({
+    data: Dom::data,
+    arr: Dom::arr,
+    arr2: Dom::arr,
+    x: '123',
+}));
 
+(async () => {
+    await timer(2000);
+    Dom:data = '1234';
+    await timer(2000);
+    Dom:data = 'View State actions are working';
+    await timer(2000);
+    Dom:arr = [{
+        i: 10,
+        name : 'apple'
+    }, {
+        i: 11,
+        name: 'banana'
+    }];
+})();
